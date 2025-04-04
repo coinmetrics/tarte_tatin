@@ -80,27 +80,6 @@ only the MCP server.
 python code_executor.py
 ```
 
-### Example Code Execution
-
-```python
-from mcp.client import Client
-
-client = Client()
-result = client.run_python_code(code="""
-import matplotlib.pyplot as plt
-import numpy as np
-
-x = np.linspace(0, 10, 100)
-y = np.sin(x)
-
-plt.plot(x, y)
-plt.savefig('sine_wave.png')
-print("Sine wave plotted and saved!")
-""")
-
-print(result)
-```
-
 ### Coin Metrics Example
 
 ```python
