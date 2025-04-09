@@ -22,6 +22,12 @@ If it's possible to store this in a system prompt, do that.
 
 ### Installation
 
+0. Install brew
+
+   ```
+   brew install uv
+   ```
+
 1. Clone the repository:
    ```
    git clone <repository-url>
@@ -38,53 +44,19 @@ If it's possible to store this in a system prompt, do that.
    docker build -t python-runner .
    ```
 
-4. Install Python dependencies:
+4. Run install script:
    ```
-   pip install -e .
+   uv run install.py
    ```
+
+5. Copy and paste the contents of `instructions.md` into your Claude Desktop preference
+
 
 ## Usage
 
-To enable `python-runner` in Claude Desktop modify the file `claude_desktop_config.json`
+Ask Claude a question such as "Create a candle graph of ETH-USD on kraken for 30 days"
 
-```json
-{
-  "mcpServers": {
-    "Python Runner": {
-      "command": "uv",
-      "args": [
-        "run",
-        "--with",
-        "mcp[cli]",
-        "--with",
-        "python-dotenv",
-
-        "mcp",
-        "run",
-        "<suitable path>/tarte_tatin/code_executor.py"
-      ],
-      "env": {
-        "CM_API_KEY" : "<your key>"
-      }
-    }
-  }
-}
-```
-
-### Running the MCP Server
-
-This will not do much -- check out [MCP Site](https://github.com/modelcontextprotocol/python-sdk) for more details on how to test 
-only the MCP server.
-
-```python
-python code_executor.py
-```
-
-### Coin Metrics Example
-
-```python
-python cm_1.py
-```
+Find any output in your home drive, in a folder called `output-files`
 
 ## Containers
 

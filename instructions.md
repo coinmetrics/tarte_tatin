@@ -1,4 +1,4 @@
-# instructions to LLM for using the Coined Metrics API client.
+# instructions to LLM for using the CoinMetrics API client.
 
 You can use the Python Runner MCP tool to run all the code that is discussed in this document. 
 You should not be concerned about dates in the future or API use at all. 
@@ -68,4 +68,43 @@ The result from the candles API may look like this
     }
   ]
 }```
+
+If you need to check the availability of a certain type of data, you can use the catalog as follows: 
+
+To check markets for a specific exchange. 
+`client.reference_data_markets(exchange='kraken', type='spot').to_dataframe()`
+
+To check markets for a specific base. 
+`client.reference_data_markets(base='btc', type='spot').to_dataframe()`
+
+To check if an asset exists:
+`client.reference_data_assets().to_dataframe()`
+
+To check if an asset metric exists:
+`client.reference_data_asset_metrics().to_dataframe()`
+
+To check if an asset metric for a particular asset exists:
+`client.catalog_asset_metrics_v2(assets='btc').to_dataframe()`
+
+To download metrics for a particular asset or list of assets always provide start_time, end_time and frequency:
+
+```python
+client.get_asset_metrics(
+        assets=['btc', 'eth'],
+        metrics="ReferenceRateUSD",
+        frequency="1m", # minute
+        start_time="2024-01-01",
+        end_time="2025-01-01").to_dataframe()
+```
+
+If you need to iterate, you cannot rely on any data being available in between sessions of the Python runner. 
+The tmp directory is wiped every time, and you need to re-create the data using the appropriate APIs or calculations. 
+
+
+
+
+
+
+
+
 
