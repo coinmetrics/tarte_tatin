@@ -84,7 +84,23 @@ To check if an asset metric exists:
 `client.reference_data_asset_metrics().to_dataframe()`
 
 To check if an asset metric for a particular asset exists:
-`client.catalog_asset_metrics_v2(asset='btc').to_dataframe()`
+`client.catalog_asset_metrics_v2(assets='btc').to_dataframe()`
+
+To download metrics for a particular asset or list of assets always provide start_time, end_time and frequency:
+
+```python
+client.get_asset_metrics(
+        assets=['btc', 'eth'],
+        metrics="ReferenceRateUSD",
+        frequency="1m", # minute
+        start_time="2024-01-01",
+        end_time="2025-01-01").to_dataframe()
+```
+
+If you need to iterate, you cannot rely on any data being available in between sessions of the Python runner. 
+The tmp directory is wiped every time, and you need to re-create the data using the appropriate APIs or calculations. 
+
+
 
 
 
