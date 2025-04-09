@@ -100,6 +100,9 @@ client.get_asset_metrics(
 If you need to iterate, you cannot rely on any data being available in between sessions of the Python runner. 
 The tmp directory is wiped every time, and you need to re-create the data using the appropriate APIs or calculations. 
 
+At the end of each python run, check if the python runner has created a file and if so, let the user know where to find the file:
+`~/output-files`
+
 
 
 
