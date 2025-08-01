@@ -5,6 +5,7 @@ import sys
 import os
 import tempfile
 import shutil
+import uuid
 from mcp.server.fastmcp import FastMCP
 
 # Initialize MCP server
@@ -39,8 +40,12 @@ async def run_python_code(code: str  # ,
     temp_dir = tempfile.mkdtemp()
     print(f"Created temporary directory: {temp_dir}", file=sys.stderr)
 
+    # Generate unique script filename with 6-digit UUID
+    script_uuid = str(uuid.uuid4())[:6]
+    script_filename = f"script-{script_uuid}.py"
+    
     # Create a temporary file with the code *inside* the temporary directory
-    code_file = os.path.join(temp_dir, "script.py")
+    code_file = os.path.join(temp_dir, script_filename)
     with open(code_file, "w") as f:
         f.write(code)
 
@@ -50,6 +55,8 @@ async def run_python_code(code: str  # ,
         "run",
         "-e",
         f"CM_API_KEY={api_key}",
+        "-e",
+        f"SCRIPT_FILENAME={script_filename}",
         "--rm",
         "-v",
         f"{temp_dir}:/tmp",  # Mount the temporary directory
